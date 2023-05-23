@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dojo - Học tiếng Nhật trực tuyến</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/css/animate.css">
+
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/home}"><span>Do</span>jo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a th:href="@{/home}" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới thiệu</a></li>
+                <li class="nav-item"><a th:href="@{/courses}" class="nav-link">Khóa học</a></li>
+                <li class="nav-item"><a th:href="@{/teachers}" class="nav-link">Giáo viên</a></li>
+                <li class="nav-item"><a th:href="@{/exam}" class="nav-link">Đánh giá năng lực</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-3 text-right">
+                <a th:href="@{/account/my-course}" class="mr-3">
+                    <span class="d-inline " th:text="${#authentication.principal.firstName} + ' '"></span>
+                    <span class="d-inline" th:text="${#authentication.principal.lastName}"></span>
+                </a>
+        </div>
+
+    </div>
+</nav>
+<!-- END nav -->
+
+<div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_1.jpg'); object-fit: cover;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate">
+                <span class="subheading">Dojo Online</span>
+                <h1 class="mb-4">Luyện thi JLPT hàng đầu Việt Nam</h1>
+                <p class="caps">Cam kết đỗ JLPT chuẩn đầu ra</p>
+                <p class="mb-0"><a th:href="@{/courses}" class="btn btn-primary">Khóa học</a>
+                    <a th:href="@{/about}" class="btn btn-white">Giới thiệu</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center pb-4">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Chinh phục tiếng Nhật từ con số 0 </span>
+                <h2 class="mb-4">Các thầy, cô hàng đầu</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div th:each="teacher : ${teachers}" class="col-md-3 col-lg-2">
+                <img th:src="${teacher.img}" class="course-category img d-flex align-items-center justify-content-center">
+                    <div class="text w-100 text-center">
+                        <h3 th:text="${teacher.name}"></h3>
+                        <span th:text="${teacher.courses.size()} + ' khóa học'"></span>
+                    </div>
+
+            </div>
+            <div class="col-md-12 text-center mt-5">
+                <a th:href="@{/teachers}" class="btn btn-secondary">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center pb-4">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Bắt đầu ngay hôm nay</span>
+                <h2 class="mb-4">Khóa học nổi bật</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-stretch ftco-animate" th:each="course : ${courses}">
+                <div class="project-wrap">
+                    <a th:href="@{/courses/{id} (id = ${course.id})}">
+                        <img th:src="${course.img}" class="img">
+                    </a>
+                    <div class="text p-4">
+                        <h3><a th:href="@{/courses/{id} (id = ${course.id})}" th:text="${course.name}"></a></h3>
+                        <p class="advisor">Giáo viên <span th:text="${course.teacher.name}"></span></p>
+                        <ul class="d-flex justify-content-between">
+                            <li><span class="flaticon-shower"></span></li>
+                            <li class="price" th:text="${course.price} + '¥'"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-counter img" id="section-counter"
+         style="background-image: url(/static/images/bg_4.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 d-flex align-items-center">
+                    <div class="icon"><span class="flaticon-online"></span></div>
+                    <div class="text">
+                        <strong class="number" data-number="400">0</strong>
+                        <span>Khóa học</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 d-flex align-items-center">
+                    <div class="icon"><span class="flaticon-graduated"></span></div>
+                    <div class="text">
+                        <strong class="number" data-number="4500">0</strong>
+                        <span>Học viên</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 d-flex align-items-center">
+                    <div class="icon"><span class="flaticon-instructor"></span></div>
+                    <div class="text">
+                        <strong class="number" data-number="1200">0</strong>
+                        <span>Bài giảng</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 d-flex align-items-center">
+                    <div class="icon"><span class="flaticon-tools"></span></div>
+                    <div class="text">
+                        <strong class="number" data-number="300">0</strong>
+                        <span>Giờ luyện tập</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+    <div class="overlay" style="background-image: url(/static/images/bg_2.jpg);"></div>
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-md-7 heading-section ftco-animate">
+                <span class="subheading">Testimonial</span>
+                <h2 class="mb-4">Học viên nói gì về Dojo</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container container-2">
+        <div class="row ftco-animate">
+            <div class="col-md-12">
+                <div class="carousel-testimony owl-carousel">
+                    <div class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </p>
+                                <p class="mb-4">"Các sensei rất dễ thương và cực vui tính. Dojo là một trung tâm tuyệt
+                                    vời những video giảng dạy rất dễ hiểu và dễ học."</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img"
+                                         style="background-image: url(/static/images/person_1.jpg)"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Phạm Hoàng</p>
+                                        <span class="position">Sinh viên</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </p>
+                                <p class="mb-4">"Các sensei rất dễ thương và cực vui tính. Dojo là một trung tâm tuyệt
+                                    vời những video giảng dạy rất dễ hiểu và dễ học."</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img"
+                                         style="background-image: url(/static/images/person_2.jpg)"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Khánh Linh</p>
+                                        <span class="position">Nhân viên văn phòng</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </p>
+                                <p class="mb-4">"Dojo là một trung tâm rất tuyệt vời từ cách dạy cho tới cách truyền cảm
+                                    hứng cho học sinh rất tốt. Có đội ngũ giáo viên quá xuất sắc."</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img"
+                                         style="background-image: url(/static/images/person_3.jpg)"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Nguyen Quang</p>
+                                        <span class="position">Thực tập sinh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </p>
+                                <p class="mb-4">"Các sensei rất dễ thương và cực vui tính. Dojo là một trung tâm tuyệt
+                                    vời những video giảng dạy rất dễ hiểu và dễ học."</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img"
+                                         style="background-image: url(/static/images/person_1.jpg)"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Roger Scott</p>
+                                        <span class="position">Marketing Manager</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </p>
+                                <p class="mb-4">"Các sensei rất dễ thương và cực vui tính. Dojo là một trung tâm tuyệt
+                                    vời những video giảng dạy rất dễ hiểu và dễ học."</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img"
+                                         style="background-image: url(/static/images/person_2.jpg)"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Nam Nguyễn</p>
+                                        <span class="position">Du học sinh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-intro ftco-section ftco-no-pb">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <div class="img" style="background-image: url(/static/images/bg_4.jpg);">
+                    <div class="overlay"></div>
+                    <h2>Thi đỗ JLPT ngay từ lần đầu tiên</h2>
+                    <p>Chỉ có tại Dojo</p>
+                    <p class="mb-0"><a th:href="@{/courses}" class="btn btn-primary px-4 py-3">Đăng ký ngay</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section services-section">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-6 heading-section pr-md-5 ftco-animate d-flex align-items-center">
+                <div class="w-100 mb-4 mb-md-0">
+                    <span class="subheading">Chào mừng bạn đến với Dojo</span>
+                    <h2 class="mb-4">Trung tâm luyện thi hàng JLPT hàng đầu Việt Nam</h2>
+<!--                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It-->
+<!--                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>-->
+<!--                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there-->
+<!--                        live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,-->
+<!--                        a large language ocean.</p>-->
+                    <div class="d-flex video-image align-items-center mt-md-4">
+                        <a href="#" class="video img d-flex align-items-center justify-content-center"
+                           style="background-image: url(/static/images/about.jpg);">
+                            <span class="fa fa-play-circle"></span>
+                        </a>
+                        <h4 class="ml-4">Learn anything from Dojo, Watch video</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services">
+                            <div class="icon d-flex align-items-center justify-content-center"><span
+                                    class="flaticon-tools"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">Phương pháp 15 phút độc quyền</h3>
+                                <p>Video ngắn, nội dung cô đọng, luôn kết hợp với thực hành</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services">
+                            <div class="icon icon-2 d-flex align-items-center justify-content-center"><span
+                                    class="flaticon-instructor"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">Lộ trình học hiệu quả</h3>
+                                <p>Cá nhân hóa cho từng học viên, phân bổ thời gian theo từng giai đoạn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services">
+                            <div class="icon icon-3 d-flex align-items-center justify-content-center"><span
+                                    class="flaticon-quiz"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">Đội ngũ giáo viên truyền lửa</h3>
+                                <p>100% giáo viên N1, giàu kinh nghiệm luyện thi JLPT</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services">
+                            <div class="icon icon-4 d-flex align-items-center justify-content-center"><span
+                                    class="flaticon-browser"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">Hỗ trợ học viên đa kênh</h3>
+                                <p>Giải đáp và hỗ trợ học viên 24/7</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer class="ftco-footer ftco-no-pt">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md pt-5">
+                <div class="ftco-footer-widget pt-md-5 mb-4">
+                    <h2 class="ftco-heading-2">About</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+                        <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md pt-5">
+                <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Help Desk</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Customer Care</a></li>
+                        <li><a href="#" class="py-2 d-block">Legal Help</a></li>
+                        <li><a href="#" class="py-2 d-block">Services</a></li>
+                        <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                        <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+                        <li><a href="#" class="py-2 d-block">Call Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md pt-5">
+                <div class="ftco-footer-widget pt-md-5 mb-4">
+                    <h2 class="ftco-heading-2">Recent Courses</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+                        <li><a href="#" class="py-2 d-block">Web Design</a></li>
+                        <li><a href="#" class="py-2 d-block">Business Studies</a></li>
+                        <li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+                        <li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+                        <li><a href="#" class="py-2 d-block">Web Developer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md pt-5">
+                <div class="ftco-footer-widget pt-md-5 mb-4">
+                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
+                            </li>
+                            <li><a href="#"><span class="icon fa fa-phone"></span><span
+                                    class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    Dojo <i class="fa fa-heart" aria-hidden="true"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.easing.1.3.js"></script>
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/jquery.stellar.min.js"></script>
+<script src="/static/js/owl.carousel.min.js"></script>
+<script src="/static/js/jquery.magnific-popup.min.js"></script>
+<script src="/static/js/jquery.animateNumber.min.js"></script>
+<script src="/static/js/bootstrap-datepicker.js"></script>
+<script src="/static/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/static/js/google-map.js"></script>
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>
