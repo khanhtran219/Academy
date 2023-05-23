@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/register")
                     .permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                     .authenticated()
                 .and()
