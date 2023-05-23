@@ -33,32 +33,20 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a th:href="@{/home}" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item active"><a th:href="@{/home}" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới thiệu</a></li>
-                <li class="nav-item active"><a th:href="@{/courses}" class="nav-link">Khóa học</a></li>
+                <li class="nav-item"><a th:href="@{/courses}" class="nav-link">Khóa học</a></li>
                 <li class="nav-item"><a th:href="@{/teachers}" class="nav-link">Giáo viên</a></li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            <a href="#" class="nav-link">Đánh giá năng lực</a>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <a th:href="@{/exam/5}" class="dropdown-item">N5</a>
-                            <a th:href="@{/exam/4}" class="dropdown-item">N4</a>
-                            <a th:href="@{/exam/3}" class="dropdown-item">N3</a>
-                            <a th:href="@{/exam/2}" class="dropdown-item">N2</a>
-                            <a th:href="@{/exam/1}" class="dropdown-item">N1</a>
-                        </div>
-                    </div>
-                </li>
+                <li class="nav-item"><a th:href="@{/exam}" class="nav-link">Đánh giá năng lực</a></li>
             </ul>
         </div>
         <div class="col-lg-3 text-right">
-                <a th:href="@{/account/profile}" class="small mr-3"><span class="icon-unlock-alt"
-                                                     th:text="${#authentication.principal.username}"></span></a>
-
+            <a th:href="@{/account/my-course}" class="mr-3">
+                <span class="d-inline " th:text="${#authentication.principal.firstName} + ' '"></span>
+                <span class="d-inline" th:text="${#authentication.principal.lastName}"></span>
+            </a>
         </div>
+
     </div>
 </nav>
 
@@ -69,8 +57,8 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Course</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a th:href="@{/home}">Trang chủ <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Khóa học</h1>
             </div>
         </div>
     </div>
@@ -95,17 +83,10 @@
                             <strong class="text-black d-block">Teacher:</strong>
                             <span th:text="${course.teacher.name}"></span>
                         </p>
-                        <p class="mb-5"><strong class="text-black d-block">Hours:</strong> 8:00 am &mdash; 9:30am</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At itaque dolore libero corrupti! Itaque, delectus?</p>
-                        <p>Modi sit dolor repellat esse! Sed necessitatibus itaque libero odit placeat nesciunt, voluptatum totam facere.</p>
+                        <p th:text="${course.title}"></p>
+                        <p th:text="${course.description}"></p>
 
-                        <ul class="ul-check primary list-unstyled mb-5">
-                            <li>Lorem ipsum dolor sit amet consectetur</li>
-                            <li>consectetur adipisicing  </li>
-                            <li>Sit dolor repellat esse</li>
-                            <li>Necessitatibus</li>
-                            <li>Sed necessitatibus itaque </li>
-                        </ul>
+                        <p th:text="'Giá: ' + ${course.price}"></p>
 
                         <p>
                             <a th:href="@{/cart/course/{id}(id = ${course.id})} " class="rounded-0 btn-lg px-5">

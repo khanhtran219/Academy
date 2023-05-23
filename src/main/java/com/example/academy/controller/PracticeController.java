@@ -51,7 +51,7 @@ public class PracticeController {
         Question question = questionService.findById(questionId);
 
         practiceService.deleteQuestion(practice, question);
-        questionService.remove(practiceId);
+//        questionService.remove(practiceId);
         return "redirect:/admin/course/practice/" + practiceId;
     }
 }
